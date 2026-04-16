@@ -228,8 +228,11 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
   position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
   font-family: var(--font-m); font-size: 0.65rem; color: var(--text-muted);
   letter-spacing: 0.12em; pointer-events: none;
-  opacity: 0; animation: fade-in 1s var(--ease) 2.5s forwards;
+  opacity: 0; transition: opacity var(--t-med);
+  animation: hint-appear 1s var(--ease) 2.5s forwards;
 }
+.canvas-hint.hint-visible { opacity: 0.5; animation: none; }
+@keyframes hint-appear { to { opacity: 0.5; } }
 @keyframes fade-in { to { opacity: 0.5; } }
 
 /* Footer (always visible below canvas) */
@@ -239,7 +242,9 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
   padding: 0.5rem 1rem; z-index: 400;
   font-family: var(--font-m); font-size: 0.62rem; color: var(--text-muted);
   letter-spacing: 0.08em; pointer-events: none;
+  opacity: 0; transition: opacity var(--t-med);
 }
+#site-footer.footer-visible { opacity: 1; }
 .ft-name { color: var(--border); }
 .ft-sep { color: var(--border-dim); }
 
@@ -304,12 +309,14 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
 }
 .cls-body:last-child { border-bottom: none; }
 .cls-attr {
-  font-size: 0.76rem; color: var(--text-muted); line-height: 1.5; white-space: nowrap;
+  font-size: 0.76rem; color: var(--text-muted); line-height: 1.5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .cls-attr em { color: var(--text-mono); font-style: normal; }
 .cls-attr .attr-true { color: #68D391; }
 .cls-method {
-  font-size: 0.76rem; color: var(--text); line-height: 1.5; white-space: nowrap;
+  font-size: 0.76rem; color: var(--text); line-height: 1.5;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   cursor: none; padding: 2px 4px; border-radius: 2px; margin-left: -4px;
   transition: background var(--t-fast), color var(--t-fast);
 }
@@ -477,8 +484,8 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
 }
 
 .seq-messages {
-  display: flex; flex-direction: column; gap: 1.6rem;
-  padding: 0 0; position: relative;
+  display: flex; flex-direction: column; gap: 2.2rem;
+  padding: 0.5rem 0; position: relative;
 }
 
 /* Each message is an arrow line spanning between lifeline columns */

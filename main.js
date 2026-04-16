@@ -9,6 +9,13 @@
 const footerYear = document.getElementById('footer-year');
 if (footerYear) footerYear.textContent = new Date().getFullYear();
 
+/* ── INITIAL VISIBILITY ──────────────────────────────────── */
+// Show footer and hint on load via class (avoids inline style/animation conflicts)
+requestAnimationFrame(() => {
+  document.getElementById('site-footer')?.classList.add('footer-visible');
+  // hint appears via its own CSS animation, then class keeps it visible after drillOut
+});
+
 /* ── CUSTOM CURSOR ────────────────────────────────────────── */
 (function initCursor() {
   const cursor = document.getElementById('cursor');
@@ -77,20 +84,21 @@ if (footerYear) footerYear.textContent = new Date().getFullYear();
   const connectors = svg.querySelectorAll('.connector');
   const connLabels = svg.querySelectorAll('.conn-label');
 
-  // Hide everything initially
+  // Hide everything initially — use will-change to avoid compositor flash
   const fade = 'opacity 500ms ease';
   [boundary, sysTab, sysTabTxt, sysTitle, sysSubtitle].forEach(el => {
-    if (el) { el.style.opacity = '0'; el.style.transition = fade; }
+    if (el) { el.style.opacity = '0'; el.style.transition = fade; el.style.willChange = 'opacity'; }
   });
-  nodes.forEach(n => { n.style.opacity = '0'; });
+  nodes.forEach(n => { n.style.opacity = '0'; n.style.willChange = 'opacity'; });
   connectors.forEach(c => {
     const len = c.getTotalLength ? c.getTotalLength() : 200;
     c.style.strokeDasharray = len;
     c.style.strokeDashoffset = len;
     c.style.opacity = '0';
+    c.style.willChange = 'opacity, stroke-dashoffset';
     c.style.transition = 'stroke-dashoffset 600ms cubic-bezier(0.4,0,0.2,1), opacity 300ms ease';
   });
-  connLabels.forEach(l => { l.style.opacity = '0'; l.style.transition = fade; });
+  connLabels.forEach(l => { l.style.opacity = '0'; l.style.transition = fade; l.style.willChange = 'opacity'; });
 
   // Sequence: boundary → title → nodes (staggered) → connectors draw on
   setTimeout(() => {
@@ -280,39 +288,42 @@ function drillIn(nodeId) {
   const hint = document.getElementById('canvas-hint');
 
   viewport.classList.add('dimmed');
-  if (hint) hint.style.opacity = '0';
-  if (footer) footer.style.opacity = '0';
+  if (hint) hint.classList.remove('hint-visible');
+  if (footer) footer.classList.remove('footer-visible');
 
   if (bcCurrent) bcCurrent.textContent = NODE_LABELS[nodeId] || nodeId;
-  if (breadcrumb) breadcrumb.hidden = false;
+  if (breadcrumb) {
+    breadcrumb.hidden = false;
+    breadcrumb.offsetHeight; // force reflow so transition fires
+  }
 
   document.querySelectorAll('.nav-link').forEach(l => {
     l.classList.toggle('active', l.dataset.node === nodeId);
   });
 
-  // Close all other panels
+  // Immediately hide all other panels (they're already faded)
   document.querySelectorAll('.detail-panel').forEach(p => {
-    if (p.dataset.node !== nodeId) {
-      p.hidden = true;
-    }
+    if (p.dataset.node !== nodeId) p.hidden = true;
   });
 
-  // Open target panel
+  // Open target panel — remove hidden, force reflow, then let CSS opacity transition fire
   const panel = document.getElementById(`detail-${nodeId}`);
   if (panel) {
     panel.hidden = false;
-    panel.scrollTop = 0;
+    panel.offsetHeight; // force reflow so opacity transition triggers
+    const scroll = panel.querySelector('.detail-scroll');
+    if (scroll) scroll.scrollTop = 0;
   }
 
   // Node-specific triggers
   if (nodeId === 'profile' && !countedUp) {
-    setTimeout(runCountUp, 500);
+    setTimeout(runCountUp, 400);
     countedUp = true;
   }
   if (nodeId === 'experience') {
     positionSeqMessages();
     if (!seqReplayed) {
-      setTimeout(replaySequence, 500);
+      setTimeout(replaySequence, 400);
       seqReplayed = true;
     }
   }
@@ -320,9 +331,8 @@ function drillIn(nodeId) {
 
 function drillOut() {
   if (!currentNode) return;
-
-  const panel = document.getElementById(`detail-${currentNode}`);
-  if (panel) { panel.hidden = true; }
+  const nodeToHide = currentNode;
+  currentNode = null;
 
   const viewport = document.getElementById('canvas-viewport');
   viewport.classList.remove('dimmed');
@@ -331,19 +341,29 @@ function drillOut() {
   if (breadcrumb) breadcrumb.hidden = true;
 
   const footer = document.getElementById('site-footer');
-  if (footer) footer.style.opacity = '1';
+  if (footer) footer.classList.add('footer-visible');
 
   const hint = document.getElementById('canvas-hint');
-  if (hint) hint.style.opacity = '1';
+  if (hint) hint.classList.add('hint-visible');
 
   document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+  // Let the panel CSS opacity transition fade out (--t-med = 360ms), then hide it
+  const panel = document.getElementById(`detail-${nodeToHide}`);
+  if (panel) {
+    panel.style.opacity = '0';
+    panel.style.pointerEvents = 'none';
+    setTimeout(() => {
+      panel.hidden = true;
+      panel.style.opacity = '';
+      panel.style.pointerEvents = '';
+    }, 370);
+  }
 
   // Close galleries and BSA panels
   document.querySelectorAll('.uc-gallery').forEach(g => { g.hidden = true; });
   document.querySelectorAll('.comp-bsa').forEach(p => { p.hidden = true; });
   document.querySelectorAll('.comp-btn--bsa').forEach(b => { b.textContent = 'VIEW ANALYSIS ▶'; });
-
-  currentNode = null;
 }
 
 // Node clicks
@@ -651,8 +671,9 @@ function openLightbox(items, idx) {
   _renderLightbox();
   const lb = document.getElementById('lightbox');
   const bd = document.getElementById('lb-backdrop');
-  if (lb) { lb.setAttribute('aria-hidden', 'false'); lb.style.display = 'flex'; }
-  if (bd) { bd.style.display = 'block'; }
+  // Use .open class so CSS opacity transition fires cleanly (no display:none flash)
+  if (lb) { lb.setAttribute('aria-hidden', 'false'); lb.classList.add('open'); }
+  if (bd) { bd.classList.add('open'); }
   document.body.style.overflow = 'hidden';
   document.getElementById('lb-close')?.focus();
 }
@@ -660,8 +681,8 @@ function openLightbox(items, idx) {
 function closeLightbox() {
   const lb = document.getElementById('lightbox');
   const bd = document.getElementById('lb-backdrop');
-  if (lb) { lb.setAttribute('aria-hidden', 'true'); lb.style.display = 'none'; }
-  if (bd) { bd.style.display = 'none'; }
+  if (lb) { lb.setAttribute('aria-hidden', 'true'); lb.classList.remove('open'); }
+  if (bd) { bd.classList.remove('open'); }
   document.body.style.overflow = '';
   lbItems = [];
 }
