@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- M body — fills canvas, brown, thick stroke -->
+  <!-- M body — slightly smaller, thicker stroke -->
   <polyline
-    points="4,22 4,2 16,14 28,2 28,22"
+    points="7,21 7,5 16,15 25,5 25,21"
     fill="none"
     stroke="#2A1B10"
-    stroke-width="3.5"
+    stroke-width="4.5"
     stroke-linejoin="miter"
     stroke-linecap="butt"/>
   <!-- Left arrowhead -->
-  <polygon points="1,21 7,21 4,30" fill="#2A1B10"/>
+  <polygon points="4,20 10,20 7,28" fill="#2A1B10"/>
   <!-- Right arrowhead -->
-  <polygon points="25,21 31,21 28,30" fill="#2A1B10"/>
+  <polygon points="22,20 28,20 25,28" fill="#2A1B10"/>
 </svg>
