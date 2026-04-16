@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mishie Mangarateke — Business Systems Analyst & Full-Stack Developer based in South Africa. 19 PRDs, 2,770+ tests, POPIA-compliant systems, and production SaaS delivery." />
+  <meta name="keywords" content="Business Systems Analyst, BSA, Full-Stack Developer, South Africa, GamHR, POPIA, .NET, Azure, Requirements Elicitation, BPMN" />
+  <meta name="author" content="Mishie Mangarateke" />
+  <meta name="robots" content="index, follow" />
+  <title>Mishie Mangarateke | Business Systems Analyst Portfolio</title>
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://m-mangarateke.github.io/Mishie/" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://m-mangarateke.github.io/Mishie/" />
+  <meta property="og:title" content="Mishie Mangarateke | Business Systems Analyst Portfolio" />
+  <meta property="og:description" content="Business Systems Analyst & Full-Stack Developer based in South Africa. 19 PRDs, 2,770+ tests, POPIA-compliant SaaS delivery." />
+  <meta property="og:image" content="https://m-mangarateke.github.io/Mishie/images/profile/ProfilePic.jpg" />
+  <meta property="og:locale" content="en_ZA" />
+  <meta property="og:site_name" content="Mishie Mangarateke Portfolio" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Mishie Mangarateke | Business Systems Analyst Portfolio" />
+  <meta name="twitter:description" content="Business Systems Analyst & Full-Stack Developer based in South Africa. 19 PRDs, 2,770+ tests, POPIA-compliant SaaS delivery." />
+  <meta name="twitter:image" content="https://m-mangarateke.github.io/Mishie/images/profile/ProfilePic.jpg" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Mishie Mangarateke",
+    "jobTitle": "Business Systems Analyst",
+    "description": "Business Systems Analyst and Full-Stack Developer based in South Africa, specialising in requirements elicitation, BPMN, POPIA compliance, and .NET/Azure delivery.",
+    "url": "https://m-mangarateke.github.io/Mishie/",
+    "image": "https://m-mangarateke.github.io/Mishie/images/profile/ProfilePic.jpg",
+    "address": { "@type": "PostalAddress", "addressCountry": "ZA" },
+    "sameAs": ["https://www.linkedin.com/in/mishie-mangarateke"],
+    "knowsAbout": ["Business Systems Analysis", "BPMN", "Requirements Elicitation", "C#", ".NET", "Azure", "SQL Server", "POPIA Compliance"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ─── CUSTOM CURSOR ─────────────────────────────────── -->
+  <div id="cursor" aria-hidden="true"><div class="cursor-ring"></div><div class="cursor-dot"></div></div>
+
+  <!-- ─── NAV ──────────────────────────────────────────── -->
+  <nav id="site-nav" aria-label="Portfolio navigation">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#" id="nav-home" aria-label="Return to overview">«system»</a>
+      <ul class="nav-links" role="list">
+        <li><a href="#" class="nav-link" data-node="profile">Profile</a></li>
+        <li><a href="#" class="nav-link" data-node="skills">Skills</a></li>
+        <li><a href="#" class="nav-link" data-node="experience">Experience</a></li>
+        <li><a href="#" class="nav-link" data-node="projects">Projects</a></li>
+        <li><a href="#" class="nav-link" data-node="designs">Designs</a></li>
+        <li><a href="#" class="nav-link" data-node="contact">Contact</a></li>
+      </ul>
+      <button class="nav-burger" id="nav-burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── BREADCRUMB ───────────────────────────────────── -->
+  <div id="breadcrumb" class="breadcrumb" hidden>
+    <button id="breadcrumb-back" class="bc-back" aria-label="Back to overview">
+      <span>←</span> «system»
+    </button>
+    <span class="bc-sep" aria-hidden="true">/</span>
+    <span id="breadcrumb-current" class="bc-current"></span>
+  </div>
+
+  <!-- ─── CANVAS VIEWPORT ──────────────────────────────── -->
+  <div id="canvas-viewport">
+    <svg id="diagram-canvas" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid meet"
+         role="application" aria-label="System diagram — click a node to explore">
+
+      <defs>
+        <!-- Open arrowhead — association -->
+        <marker id="arr-open" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polyline points="0,0 9,3.5 0,7" fill="none" stroke="#C9A040" stroke-width="1.3"/>
+        </marker>
+        <!-- Filled arrowhead — dependency -->
+        <marker id="arr-fill" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0,0 9,3.5 0,7" fill="#C9A040"/>
+        </marker>
+        <!-- Glow filter -->
+        <filter id="node-glow" x="-25%" y="-25%" width="150%" height="150%">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Grid dots drawn by JS -->
+      <g id="grid-layer" aria-hidden="true"></g>
+
+      <!-- ── OVERVIEW ──────────────────────────────────── -->
+      <g id="overview-layer">
+
+        <!-- System boundary -->
+        <rect class="system-boundary" x="60" y="60" width="1280" height="780" rx="3"/>
+        <rect class="system-tab" x="60" y="38" width="230" height="26" rx="2"/>
+        <text class="system-tab-text" x="75" y="56">«system»</text>
+        <text class="system-title" x="700" y="116" text-anchor="middle">MISHIE MANGARATEKE</text>
+        <text class="system-subtitle" x="700" y="148" text-anchor="middle">Business Systems Analyst</text>
+
+        <!-- Connectors drawn via JS stroke-dashoffset animation -->
+        <path id="conn-1" class="connector" d="M 432,278 L 768,278" marker-end="url(#arr-open)"/>
+        <text class="conn-label" x="600" y="268">«uses»</text>
+        <path id="conn-2" class="connector" d="M 330,332 L 330,428" marker-end="url(#arr-fill)"/>
+        <path id="conn-3" class="connector" d="M 870,332 L 870,428" marker-end="url(#arr-fill)"/>
+        <path id="conn-4" class="connector" d="M 432,478 L 768,478" marker-end="url(#arr-open)"/>
+        <text class="conn-label" x="600" y="468">«enables»</text>
+        <path id="conn-5" class="connector" d="M 330,532 L 330,628" marker-end="url(#arr-fill)"/>
+        <path id="conn-6" class="connector" d="M 870,532 L 870,628" marker-end="url(#arr-fill)"/>
+        <path id="conn-7" class="connector" d="M 432,678 L 768,678" marker-end="url(#arr-open)"/>
+        <text class="conn-label" x="600" y="668">«expresses»</text>
+
+        <!-- ── NODES ──────────────────────────────────── -->
+        <g class="uml-node" id="node-profile" data-node="profile"
+           role="button" tabindex="0" aria-label="Profile — Class Diagram. Click to explore.">
+          <rect class="node-bg" x="228" y="228" width="204" height="104" rx="2"/>
+          <line class="node-div" x1="228" y1="260" x2="432" y2="260"/>
+          <text class="node-stereo" x="330" y="249" text-anchor="middle">«profile»</text>
+          <text class="node-name" x="330" y="292" text-anchor="middle">PROFILE</text>
+          <text class="node-hint" x="330" y="316" text-anchor="middle">Class Diagram</text>
+        </g>
+
+        <g class="uml-node" id="node-skills" data-node="skills"
+           role="button" tabindex="0" aria-label="Skills — Package Diagram. Click to explore.">
+          <rect class="node-bg" x="768" y="228" width="204" height="104" rx="2"/>
+          <line class="node-div" x1="768" y1="260" x2="972" y2="260"/>
+          <text class="node-stereo" x="870" y="249" text-anchor="middle">«package»</text>
+          <text class="node-name" x="870" y="292" text-anchor="middle">SKILLS</text>
+          <text class="node-hint" x="870" y="316" text-anchor="middle">Package Diagram</text>
+        </g>
+
+        <g class="uml-node" id="node-experience" data-node="experience"
+           role="button" tabindex="0" aria-label="Experience — Sequence Diagram. Click to explore.">
+          <rect class="node-bg" x="228" y="428" width="204" height="104" rx="2"/>
+          <line class="node-div" x1="228" y1="460" x2="432" y2="460"/>
+          <text class="node-stereo" x="330" y="449" text-anchor="middle">«sequence»</text>
+          <text class="node-name" x="330" y="492" text-anchor="middle">EXPERIENCE</text>
+          <text class="node-hint" x="330" y="516" text-anchor="middle">Sequence Diagram</text>
+        </g>
+
+        <g class="uml-node" id="node-projects" data-node="projects"
+           role="button" tabindex="0" aria-label="Projects — Component Diagram. Click to explore.">
+          <rect class="node-bg" x="768" y="428" width="204" height="104" rx="2"/>
+          <line class="node-div" x1="768" y1="460" x2="972" y2="460"/>
+          <text class="node-stereo" x="870" y="449" text-anchor="middle">«component»</text>
+          <text class="node-name" x="870" y="492" text-anchor="middle">PROJECTS</text>
+          <text class="node-hint" x="870" y="516" text-anchor="middle">Component Diagram</text>
+        </g>
+
+        <g class="uml-node" id="node-designs" data-node="designs"
+           role="button" tabindex="0" aria-label="Designs — Use Case Diagram. Click to explore.">
+          <rect class="node-bg" x="228" y="628" width="204" height="104" rx="2"/>
+          <line class="node-div" x1="228" y1="660" x2="432" y2="660"/>
+          <text class="node-stereo" x="330" y="649" text-anchor="middle">«usecase»</text>
+          <text class="node-name" x="330" y="692" text-anchor="middle">DESIGNS</text>
+          <text class="node-hint" x="330" y="716" text-anchor="middle">Use Case Diagram</text>
+        </g>
+
+        <g class="uml-node" id="node-contact" data-node="contact"
+           role="button" tabindex="0" aria-label="Contact — State Machine. Click to explore.">
+          <rect class="node-bg" x="768" y="628" width="204" height="104" rx="2"/>
+          <line class="node-div" x1="768" y1="660" x2="972" y2="660"/>
+          <text class="node-stereo" x="870" y="649" text-anchor="middle">«state»</text>
+          <text class="node-name" x="870" y="692" text-anchor="middle">CONTACT</text>
+          <text class="node-hint" x="870" y="716" text-anchor="middle">State Machine</text>
+        </g>
+
+      </g><!-- /overview-layer -->
+    </svg>
+
+    <p id="canvas-hint" class="canvas-hint" aria-hidden="true">
+      click a node · drag to pan · scroll to zoom
+    </p>
+  </div><!-- /canvas-viewport -->
+
+  <!-- ═══════════════════════════════════════════════════
+       DETAIL PANELS
+  ═══════════════════════════════════════════════════ -->
+
+  <!-- ── PROFILE: Class Diagram ────────────────────────── -->
+  <section id="detail-profile" class="detail-panel" data-node="profile" hidden>
+    <div class="detail-scroll">
+      <div class="diagram-header">
+        <span class="diag-badge">Class Diagram</span>
+        <h2 class="diag-title">«profile»</h2>
+      </div>
+
+      <div class="class-diagram-wrap">
+
+        <div class="uml-class uml-class--main">
+          <div class="cls-head">
+            <div class="cls-stereo">«BusinessSystemsAnalyst»</div>
+            <div class="cls-name">Mishie Mangarateke</div>
+          </div>
+          <div class="cls-body">
+            <div class="cls-attr">+ role&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: String = <em>"BSA &amp; Full-Stack Developer"</em></div>
+            <div class="cls-attr">+ clearance : Cert&nbsp;&nbsp; = <em>"UCT BSA Certificate"</em></div>
+            <div class="cls-attr">+ location&nbsp; : String = <em>"South Africa"</em></div>
+            <div class="cls-attr">+ available : Bool&nbsp;&nbsp; = <em class="attr-true">true</em></div>
+          </div>
+          <div class="cls-body">
+            <div class="cls-method" data-tip="19 Product Requirements Documents produced at Zenowethu (Pty) Ltd">+ analyseRequirements()&nbsp; : PRD[19]</div>
+            <div class="cls-method" data-tip="Business Process Modelling using BPMN 2.0 notation">+ mapProcesses()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : BPMN</div>
+            <div class="cls-method" data-tip=".NET 10 · C# · SQL Server · Azure Cloud">+ buildSystems()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : Application</div>
+            <div class="cls-method" data-tip="POPIA · SARS · BCEA — 100% regulatory compliance at Zenowethu">+ deliverCompliance()&nbsp;&nbsp; : Regulation</div>
+            <div class="cls-method" data-tip="End-to-end solution architecture and design">+ designSolutions()&nbsp;&nbsp;&nbsp;&nbsp; : Architecture</div>
+          </div>
+        </div>
+
+        <!-- Stat association boxes -->
+        <div class="stat-row">
+          <div class="stat-assoc">
+            <div class="sa-line" aria-hidden="true"></div>
+            <div class="uml-class uml-class--stat">
+              <div class="cls-head"><div class="cls-name">PRDCount</div></div>
+              <div class="cls-body"><div class="cls-attr">= <span class="count-num" data-target="19" data-suffix="">0</span></div></div>
+            </div>
+            <div class="sa-label">«produced»</div>
+          </div>
+          <div class="stat-assoc">
+            <div class="sa-line" aria-hidden="true"></div>
+            <div class="uml-class uml-class--stat">
+              <div class="cls-head"><div class="cls-name">TestSuite</div></div>
+              <div class="cls-body"><div class="cls-attr">= <span class="count-num" data-target="2770" data-suffix="+">0</span></div></div>
+            </div>
+            <div class="sa-label">«validates»</div>
+          </div>
+          <div class="stat-assoc">
+            <div class="sa-line" aria-hidden="true"></div>
+            <div class="uml-class uml-class--stat">
+              <div class="cls-head"><div class="cls-name">Coverage</div></div>
+              <div class="cls-body"><div class="cls-attr">= <span class="count-num" data-target="90" data-suffix="%">0</span></div></div>
+            </div>
+            <div class="sa-label">«measures»</div>
+          </div>
+          <div class="stat-assoc">
+            <div class="sa-line" aria-hidden="true"></div>
+            <div class="uml-class uml-class--stat">
+              <div class="cls-head"><div class="cls-name">PayrollGain</div></div>
+              <div class="cls-body"><div class="cls-attr">= <em>"5 → 1 day"</em></div></div>
+            </div>
+            <div class="sa-label">«delivered»</div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="edu-assoc">
+          <div class="ea-line" aria-hidden="true"></div>
+          <div class="ea-label">«enrolled in»</div>
+          <div class="uml-class uml-class--edu">
+            <div class="cls-head">
+              <div class="cls-stereo">«institution»</div>
+              <div class="cls-name">Education</div>
+            </div>
+            <div class="cls-body">
+              <div class="cls-attr">- UCT Business Systems Analysis Certificate · 2026 · <em>Pending</em></div>
+              <div class="cls-attr">- B.Computer &amp; Info Science: App Dev · IIE Varsity College · <em>2023–2025</em></div>
+              <div class="cls-attr">- Matric Certificate · Cornerstone College · <em>2022</em></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /class-diagram-wrap -->
+      <div id="method-tip" class="method-tip" role="tooltip" aria-live="polite" hidden></div>
+    </div>
+  </section>
+
+  <!-- ── SKILLS: Package Diagram ───────────────────────── -->
+  <section id="detail-skills" class="detail-panel" data-node="skills" hidden>
+    <div class="detail-scroll">
+      <div class="diagram-header">
+        <span class="diag-badge">Package Diagram</span>
+        <h2 class="diag-title">«skills»</h2>
+      </div>
+
+      <div class="filter-bar" role="tablist" aria-label="Skill category filter">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">ALL</button>
+        <button class="filter-btn" data-filter="ba" role="tab" aria-selected="false">BA LAYER</button>
+        <button class="filter-btn" data-filter="tech" role="tab" aria-selected="false">TECH LAYER</button>
+      </div>
+
+      <div class="pkg-diagram">
+
+        <div class="uml-pkg" id="pkg-ba" data-pkg="ba">
+          <div class="pkg-tab">Business Analysis</div>
+          <div class="pkg-body">
+            <div class="pkg-cls" data-cat="ba">Requirements Elicitation &amp; Documentation</div>
+            <div class="pkg-cls" data-cat="ba">Business Process Modelling (BPMN)</div>
+            <div class="pkg-cls" data-cat="ba">Stakeholder Analysis &amp; Management</div>
+            <div class="pkg-cls" data-cat="ba">Use Cases / User Stories / Acceptance Criteria</div>
+            <div class="pkg-cls" data-cat="ba">Functional &amp; Non-Functional Requirements</div>
+            <div class="pkg-cls" data-cat="ba">UAT Coordination</div>
+            <div class="pkg-cls" data-cat="ba">Change Impact Assessment</div>
+            <div class="pkg-cls" data-cat="ba">Agile / Scrum BA</div>
+            <div class="pkg-cls" data-cat="ba">Solution Evaluation</div>
+          </div>
+        </div>
+
+        <div class="pkg-arrow-row" aria-hidden="true">
+          <svg viewBox="0 0 100 24" class="pkg-arrow-svg">
+            <line x1="2" y1="12" x2="78" y2="12" stroke="#C9A040" stroke-width="1.5" stroke-dasharray="5,3"/>
+            <polyline points="70,6 82,12 70,18" fill="none" stroke="#C9A040" stroke-width="1.5"/>
+          </svg>
+          <span class="pkg-uses-txt">«uses»</span>
+        </div>
+
+        <div class="uml-pkg" id="pkg-tech" data-pkg="tech">
+          <div class="pkg-tab">Technical Enablers</div>
+          <div class="pkg-body">
+            <div class="pkg-cls pkg-cls--detail" data-cat="tech">
+              <span class="pkc-name">Full-Stack Development</span>
+              <span class="pkc-sub">C# · .NET · SQL · Kotlin · JavaScript</span>
+            </div>
+            <div class="pkg-cls pkg-cls--detail" data-cat="tech">
+              <span class="pkc-name">Azure Cloud &amp; DevOps</span>
+              <span class="pkc-sub">CI/CD · App Services · Pipelines</span>
+            </div>
+            <div class="pkg-cls pkg-cls--detail" data-cat="tech">
+              <span class="pkc-name">Power BI &amp; Reporting</span>
+              <span class="pkc-sub">DAX · Data Modelling · Dashboards</span>
+            </div>
+            <div class="pkg-cls pkg-cls--detail" data-cat="tech">
+              <span class="pkc-name">AI-Assisted Development</span>
+              <span class="pkc-sub">Claude AI · GitHub Copilot</span>
+            </div>
+            <div class="pkg-cls pkg-cls--detail" data-cat="tech">
+              <span class="pkc-name">Workflow Automation</span>
+              <span class="pkc-sub">N8N · Make (Integromat)</span>
+            </div>
+            <div class="pkg-cls pkg-cls--detail" data-cat="tech">
+              <span class="pkc-name">Diagramming &amp; Prototyping</span>
+              <span class="pkc-sub">Draw.io · Lucidchart · Figma</span>
+            </div>
+            <div class="pkg-cls pkg-cls--detail" data-cat="tech">
+              <span class="pkc-name">Dev Tools &amp; Collaboration</span>
+              <span class="pkc-sub">JIRA · GitHub · Office 365 · Canva</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /pkg-diagram -->
+    </div>
+  </section>
+
+  <!-- ── EXPERIENCE: Sequence Diagram ──────────────────── -->
+  <section id="detail-experience" class="detail-panel" data-node="experience" hidden>
+    <div class="detail-scroll">
+      <div class="diagram-header">
+        <span class="diag-badge">Sequence Diagram</span>
+        <h2 class="diag-title">«experience»</h2>
+      </div>
+
+      <div class="seq-diagram" id="seq-1">
+        <div class="seq-context">Software Developer &amp; Systems Analyst · Zenowethu (Pty) Ltd · Jan 2026 – Apr 2026</div>
+        <div class="seq-frame">
+          <div class="seq-heads">
+            <div class="seq-ll-head">Mishie</div>
+            <div class="seq-ll-head">Zenowethu</div>
+            <div class="seq-ll-head">GamHR</div>
+            <div class="seq-ll-head">Stakeholders</div>
+          </div>
+          <div class="seq-body">
+            <div class="seq-messages" data-lifelines="4">
+              <div class="seq-msg" data-from="0" data-to="1"><span class="msg-txt">join : Jan 2026</span></div>
+              <div class="seq-msg" data-from="1" data-to="2"><span class="msg-txt">requirements elicitation</span></div>
+              <div class="seq-msg seq-msg--ret" data-from="1" data-to="0"><span class="msg-txt">19 PRDs scoped</span></div>
+              <div class="seq-msg" data-from="0" data-to="2"><span class="msg-txt">build &amp; test · 2,770+ tests · 90% coverage</span></div>
+              <div class="seq-msg" data-from="2" data-to="3"><span class="msg-txt">UAT sessions</span></div>
+              <div class="seq-msg seq-msg--ret" data-from="3" data-to="2"><span class="msg-txt">sign-off</span></div>
+              <div class="seq-msg" data-from="2" data-to="3"><span class="msg-txt">PRODUCTION · gamhr.co.za live</span></div>
+              <div class="seq-msg seq-msg--result" data-from="0" data-to="3"><span class="msg-txt">payroll: 5 days → 1 day · POPIA compliant</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="seq-diagram" id="seq-2" style="margin-top:3rem">
+        <div class="seq-context">BSA Assistant (Part-Time) · Mangam Resort · 2021 – 2022</div>
+        <div class="seq-frame">
+          <div class="seq-heads">
+            <div class="seq-ll-head">Mishie</div>
+            <div class="seq-ll-head">Resort Staff</div>
+            <div class="seq-ll-head">System</div>
+          </div>
+          <div class="seq-body">
+            <div class="seq-messages" data-lifelines="3">
+              <div class="seq-msg" data-from="0" data-to="1"><span class="msg-txt">as-is process analysis</span></div>
+              <div class="seq-msg seq-msg--ret" data-from="1" data-to="0"><span class="msg-txt">requirements elicited</span></div>
+              <div class="seq-msg" data-from="0" data-to="2"><span class="msg-txt">design &amp; build digital workflow</span></div>
+              <div class="seq-msg seq-msg--result" data-from="2" data-to="1"><span class="msg-txt">digital booking system live</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── PROJECTS: Component Diagram ───────────────────── -->
+  <section id="detail-projects" class="detail-panel" data-node="projects" hidden>
+    <div class="detail-scroll">
+      <div class="diagram-header">
+        <span class="diag-badge">Component Diagram</span>
+        <h2 class="diag-title">«projects»</h2>
+      </div>
+
+      <div class="comp-grid">
+
+        <!-- GamHR -->
+        <div class="uml-comp">
+          <div class="comp-head">
+            <span class="comp-stereo">«component»</span>
+            <span class="comp-name">GamHR</span>
+            <span class="comp-icon" aria-hidden="true">⊞</span>
+          </div>
+          <div class="comp-carousel" data-project="gamhr">
+            <div class="car-track">
+              <div class="car-slide active"><img src="./images/projects/gamhr/gam1.png" alt="GamHR screenshot 1" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/gamhr/gam2.png" alt="GamHR screenshot 2" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/gamhr/gam3.png" alt="GamHR screenshot 3" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/gamhr/gam4.png" alt="GamHR screenshot 4" loading="lazy"/></div>
+            </div>
+            <div class="car-ctrl">
+              <button class="car-prev" aria-label="Previous">‹</button>
+              <div class="car-dots">
+                <span class="car-dot active"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span>
+              </div>
+              <button class="car-next" aria-label="Next">›</button>
+            </div>
+          </div>
+          <div class="comp-ifaces">
+            <div class="iface-p"><span class="ifb">○──</span>/payroll&emsp;<span class="ifb">○──</span>/compliance&emsp;<span class="ifb">○──</span>/employees</div>
+            <div class="iface-r"><span class="ifs">──○</span>.NET 10 + C#&emsp;<span class="ifs">──○</span>Azure + SQL&emsp;<span class="ifs">──○</span>POPIA · BCEA</div>
+          </div>
+          <div class="comp-bsa" id="bsa-gamhr" hidden>
+            <div class="bsa-r"><span class="bsa-l">PROBLEM</span><span>Manual HR processes with no compliance traceability across payroll, leave, and employee data</span></div>
+            <div class="bsa-r"><span class="bsa-l">SOLUTION</span><span>19 PRDs produced, 200+ RTM entries, RBAC model design, full regulatory mapping POPIA/SARS/BCEA</span></div>
+            <div class="bsa-r"><span class="bsa-l">OUTCOME</span><span>Production SaaS · .NET 10 + Azure · 2,770+ tests · 90% coverage · payroll 5 → 1 day</span></div>
+          </div>
+          <div class="comp-actions">
+            <button class="comp-btn comp-btn--bsa" data-bsa="bsa-gamhr">VIEW ANALYSIS ▶</button>
+            <a href="https://gamhr.co.za" target="_blank" rel="noopener" class="comp-btn comp-btn--live">gamhr.co.za ↗</a>
+          </div>
+        </div>
+
+        <!-- Tenantree -->
+        <div class="uml-comp">
+          <div class="comp-head">
+            <span class="comp-stereo">«component»</span>
+            <span class="comp-name">Tenantree</span>
+            <span class="comp-icon" aria-hidden="true">⊞</span>
+          </div>
+          <div class="comp-video">
+            <video autoplay muted loop playsinline class="project-video">
+              <source src="./images/projects/tenantree/TenantreeAdWeb.mp4" type="video/mp4"/>
+            </video>
+          </div>
+          <div class="comp-ifaces">
+            <div class="iface-p"><span class="ifb">○──</span>/tenants&emsp;<span class="ifb">○──</span>/leases&emsp;<span class="ifb">○──</span>/payments</div>
+            <div class="iface-r"><span class="ifs">──○</span>.NET MVC + Kotlin&emsp;<span class="ifs">──○</span>Azure</div>
+          </div>
+          <div class="comp-bsa" id="bsa-tenantree" hidden>
+            <div class="bsa-r"><span class="bsa-l">PROBLEM</span><span>No unified multi-stakeholder platform for tenant and property management</span></div>
+            <div class="bsa-r"><span class="bsa-l">SOLUTION</span><span>RBAC model design, cross-platform data architecture, biometric authentication</span></div>
+            <div class="bsa-r"><span class="bsa-l">OUTCOME</span><span>Web + mobile platform with biometric login and unified tenant management view</span></div>
+          </div>
+          <div class="comp-actions">
+            <button class="comp-btn comp-btn--bsa" data-bsa="bsa-tenantree">VIEW ANALYSIS ▶</button>
+          </div>
+        </div>
+
+        <!-- AffordNiture -->
+        <div class="uml-comp">
+          <div class="comp-head">
+            <span class="comp-stereo">«component»</span>
+            <span class="comp-name">AffordNiture</span>
+            <span class="comp-icon" aria-hidden="true">⊞</span>
+          </div>
+          <div class="comp-carousel" data-project="affordniture">
+            <div class="car-track">
+              <div class="car-slide active"><img src="./images/projects/affordniture/afford.png" alt="AffordNiture 1" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford1.png" alt="AffordNiture 2" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford2.png" alt="AffordNiture 3" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford3.png" alt="AffordNiture 4" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford4.png" alt="AffordNiture 5" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford5.png" alt="AffordNiture 6" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford6.png" alt="AffordNiture 7" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford7.png" alt="AffordNiture 8" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford8.png" alt="AffordNiture 9" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford9.png" alt="AffordNiture 10" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford10.png" alt="AffordNiture 11" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford11.png" alt="AffordNiture 12" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford12.png" alt="AffordNiture 13" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford13.png" alt="AffordNiture 14" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/affordniture/afford14.png" alt="AffordNiture 15" loading="lazy"/></div>
+            </div>
+            <div class="car-ctrl">
+              <button class="car-prev" aria-label="Previous">‹</button>
+              <div class="car-dots">
+                <span class="car-dot active"></span><span class="car-dot"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+              </div>
+              <button class="car-next" aria-label="Next">›</button>
+            </div>
+          </div>
+          <div class="comp-ifaces">
+            <div class="iface-p"><span class="ifb">○──</span>/shop&emsp;<span class="ifb">○──</span>/cart&emsp;<span class="ifb">○──</span>/orders</div>
+            <div class="iface-r"><span class="ifs">──○</span>ASP.NET + SQL Server</div>
+          </div>
+          <div class="comp-bsa" id="bsa-affordniture" hidden>
+            <div class="bsa-r"><span class="bsa-l">PROBLEM</span><span>Local furniture retailer had no digital presence or online sales channel</span></div>
+            <div class="bsa-r"><span class="bsa-l">SOLUTION</span><span>User journey mapping, functional specifications, full e-commerce platform design</span></div>
+            <div class="bsa-r"><span class="bsa-l">OUTCOME</span><span>Full-stack store with product catalog, cart, checkout, and order management</span></div>
+          </div>
+          <div class="comp-actions">
+            <button class="comp-btn comp-btn--bsa" data-bsa="bsa-affordniture">VIEW ANALYSIS ▶</button>
+          </div>
+        </div>
+
+        <!-- NNALEBOI -->
+        <div class="uml-comp">
+          <div class="comp-head">
+            <span class="comp-stereo">«component»</span>
+            <span class="comp-name">NNALEBOI Travel</span>
+            <span class="comp-icon" aria-hidden="true">⊞</span>
+          </div>
+          <div class="comp-carousel" data-project="nnaleboi">
+            <div class="car-track">
+              <div class="car-slide active"><img src="./images/projects/nnaleboi/nnaleboi1.png" alt="NNALEBOI Travel screenshot 1" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/nnaleboi/nnaleboi2.png" alt="NNALEBOI Travel screenshot 2" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/nnaleboi/nnaleboi3.png" alt="NNALEBOI Travel screenshot 3" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/nnaleboi/nnaleboi4.png" alt="NNALEBOI Travel screenshot 4" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/nnaleboi/nnaleboi5.png" alt="NNALEBOI Travel screenshot 5" loading="lazy"/></div>
+            </div>
+            <div class="car-ctrl">
+              <button class="car-prev" aria-label="Previous">‹</button>
+              <div class="car-dots">
+                <span class="car-dot active"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+              </div>
+              <button class="car-next" aria-label="Next">›</button>
+            </div>
+          </div>
+          <div class="comp-ifaces">
+            <div class="iface-p"><span class="ifb">○──</span>/packages&emsp;<span class="ifb">○──</span>/booking&emsp;<span class="ifb">○──</span>/enquiries</div>
+            <div class="iface-r"><span class="ifs">──○</span>Web · SEO</div>
+          </div>
+          <div class="comp-bsa" id="bsa-nnaleboi" hidden>
+            <div class="bsa-r"><span class="bsa-l">PROBLEM</span><span>Travel brand launching with no web presence or digital booking capability</span></div>
+            <div class="bsa-r"><span class="bsa-l">SOLUTION</span><span>Client requirements gathered → structured SEO-optimised web solution designed and built</span></div>
+            <div class="bsa-r"><span class="bsa-l">OUTCOME</span><span>Live site for luxury travel packages, safaris, cruises, and honeymoons</span></div>
+          </div>
+          <div class="comp-actions">
+            <button class="comp-btn comp-btn--bsa" data-bsa="bsa-nnaleboi">VIEW ANALYSIS ▶</button>
+            <a href="https://nnaleboi.co.za" target="_blank" rel="noopener" class="comp-btn comp-btn--live">nnaleboi.co.za ↗</a>
+          </div>
+        </div>
+
+        <!-- Mangam Resort -->
+        <div class="uml-comp">
+          <div class="comp-head">
+            <span class="comp-stereo">«component»</span>
+            <span class="comp-name">Mangam Resort</span>
+            <span class="comp-icon" aria-hidden="true">⊞</span>
+          </div>
+          <div class="comp-carousel" data-project="mangam">
+            <div class="car-track">
+              <div class="car-slide active"><img src="./images/projects/mangam/MR1.png" alt="Mangam Resort 1" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR2.png" alt="Mangam Resort 2" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR3.png" alt="Mangam Resort 3" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR4.png" alt="Mangam Resort 4" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR5.png" alt="Mangam Resort 5" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR6.png" alt="Mangam Resort 6" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR7.png" alt="Mangam Resort 7" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR8.png" alt="Mangam Resort 8" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR9.png" alt="Mangam Resort 9" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR10.png" alt="Mangam Resort 10" loading="lazy"/></div>
+              <div class="car-slide"><img src="./images/projects/mangam/MR11.png" alt="Mangam Resort 11" loading="lazy"/></div>
+            </div>
+            <div class="car-ctrl">
+              <button class="car-prev" aria-label="Previous">‹</button>
+              <div class="car-dots">
+                <span class="car-dot active"></span><span class="car-dot"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span><span class="car-dot"></span>
+                <span class="car-dot"></span><span class="car-dot"></span>
+              </div>
+              <button class="car-next" aria-label="Next">›</button>
+            </div>
+          </div>
+          <div class="comp-ifaces">
+            <div class="iface-p"><span class="ifb">○──</span>/accommodation&emsp;<span class="ifb">○──</span>/events&emsp;<span class="ifb">○──</span>/booking</div>
+            <div class="iface-r"><span class="ifs">──○</span>Web · Booking System</div>
+          </div>
+          <div class="comp-bsa" id="bsa-mangam" hidden>
+            <div class="bsa-r"><span class="bsa-l">PROBLEM</span><span>Resort relied on manual paper-based guest management with no digital presence</span></div>
+            <div class="bsa-r"><span class="bsa-l">SOLUTION</span><span>As-is process analysis → digitised to-be solution design → full hospitality website built</span></div>
+            <div class="bsa-r"><span class="bsa-l">OUTCOME</span><span>Digital workflow replacing paper · professional brand presence established</span></div>
+          </div>
+          <div class="comp-actions">
+            <button class="comp-btn comp-btn--bsa" data-bsa="bsa-mangam">VIEW ANALYSIS ▶</button>
+          </div>
+        </div>
+
+      </div><!-- /comp-grid -->
+    </div>
+  </section>
+
+  <!-- ── DESIGNS: Use Case Diagram ──────────────────────── -->
+  <section id="detail-designs" class="detail-panel" data-node="designs" hidden>
+    <div class="detail-scroll">
+      <div class="diagram-header">
+        <span class="diag-badge">Use Case Diagram</span>
+        <h2 class="diag-title">«designs»</h2>
+      </div>
+
+      <div class="uc-layout">
+        <div class="uc-boundary">
+          <div class="uc-sys-label">«system» DESIGN DELIVERABLES</div>
+
+          <div class="uc-actor-left">
+            <svg class="actor-fig" viewBox="0 0 40 80" aria-label="Mishie — actor">
+              <circle cx="20" cy="10" r="8" fill="none" stroke="#C9A040" stroke-width="1.5"/>
+              <line x1="20" y1="18" x2="20" y2="50" stroke="#C9A040" stroke-width="1.5"/>
+              <line x1="4" y1="32" x2="36" y2="32" stroke="#C9A040" stroke-width="1.5"/>
+              <line x1="20" y1="50" x2="6" y2="70" stroke="#C9A040" stroke-width="1.5"/>
+              <line x1="20" y1="50" x2="34" y2="70" stroke="#C9A040" stroke-width="1.5"/>
+            </svg>
+            <div class="actor-name">Mishie</div>
+          </div>
+
+          <div class="uc-cases">
+            <button class="uc-ellipse" data-client="puremed">
+              <span class="uce-name">Brand Identity Design</span>
+              <span class="uce-count">7 pieces · Pure Medical</span>
+            </button>
+            <button class="uc-ellipse" data-client="magoda">
+              <span class="uce-name">Marketing Materials</span>
+              <span class="uce-count">2 pieces · Magoda</span>
+            </button>
+            <button class="uc-ellipse" data-client="truevine">
+              <span class="uce-name">Event Poster Design</span>
+              <span class="uce-count">1 piece · TrueVine</span>
+            </button>
+          </div>
+
+          <div class="uc-actors-right">
+            <div class="uc-actor-r" data-client="puremed">
+              <svg class="actor-fig" viewBox="0 0 40 80" aria-label="Pure Medical — client actor">
+                <circle cx="20" cy="10" r="8" fill="none" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="18" x2="20" y2="50" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="4" y1="32" x2="36" y2="32" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="50" x2="6" y2="70" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="50" x2="34" y2="70" stroke="#63B3ED" stroke-width="1.5"/>
+              </svg>
+              <div class="actor-name">Pure Medical</div>
+            </div>
+            <div class="uc-actor-r" data-client="magoda">
+              <svg class="actor-fig" viewBox="0 0 40 80" aria-label="Magoda — client actor">
+                <circle cx="20" cy="10" r="8" fill="none" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="18" x2="20" y2="50" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="4" y1="32" x2="36" y2="32" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="50" x2="6" y2="70" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="50" x2="34" y2="70" stroke="#63B3ED" stroke-width="1.5"/>
+              </svg>
+              <div class="actor-name">Magoda</div>
+            </div>
+            <div class="uc-actor-r" data-client="truevine">
+              <svg class="actor-fig" viewBox="0 0 40 80" aria-label="TrueVine — client actor">
+                <circle cx="20" cy="10" r="8" fill="none" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="18" x2="20" y2="50" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="4" y1="32" x2="36" y2="32" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="50" x2="6" y2="70" stroke="#63B3ED" stroke-width="1.5"/>
+                <line x1="20" y1="50" x2="34" y2="70" stroke="#63B3ED" stroke-width="1.5"/>
+              </svg>
+              <div class="actor-name">TrueVine</div>
+            </div>
+          </div>
+
+        </div><!-- /uc-boundary -->
+
+        <!-- Galleries -->
+        <div class="uc-gallery" id="gal-puremed" hidden>
+          <div class="gal-head"><span>Pure Medical — Brand &amp; Marketing</span><button class="gal-close" data-gal="gal-puremed" aria-label="Close gallery">×</button></div>
+          <div class="design-strip" data-drag>
+            <div class="ds-item" data-src="./images/design-work/puremed/pmed1.jpg" data-cap="Pure Medical 1"><img src="./images/design-work/puremed/pmed1.jpg" alt="Pure Medical branding 1" loading="lazy"/></div>
+            <div class="ds-item" data-src="./images/design-work/puremed/pmed2.jpg" data-cap="Pure Medical 2"><img src="./images/design-work/puremed/pmed2.jpg" alt="Pure Medical branding 2" loading="lazy"/></div>
+            <div class="ds-item" data-src="./images/design-work/puremed/pmed3.jpg" data-cap="Pure Medical 3"><img src="./images/design-work/puremed/pmed3.jpg" alt="Pure Medical branding 3" loading="lazy"/></div>
+            <div class="ds-item" data-src="./images/design-work/puremed/pmed4.jpg" data-cap="Pure Medical 4"><img src="./images/design-work/puremed/pmed4.jpg" alt="Pure Medical branding 4" loading="lazy"/></div>
+            <div class="ds-item" data-src="./images/design-work/puremed/pmed5.jpg" data-cap="Pure Medical 5"><img src="./images/design-work/puremed/pmed5.jpg" alt="Pure Medical branding 5" loading="lazy"/></div>
+            <div class="ds-item" data-src="./images/design-work/puremed/pmed6.jpg" data-cap="Pure Medical 6"><img src="./images/design-work/puremed/pmed6.jpg" alt="Pure Medical branding 6" loading="lazy"/></div>
+            <div class="ds-item" data-src="./images/design-work/puremed/pmed7.jpg" data-cap="Pure Medical 7"><img src="./images/design-work/puremed/pmed7.jpg" alt="Pure Medical branding 7" loading="lazy"/></div>
+          </div>
+        </div>
+
+        <div class="uc-gallery" id="gal-magoda" hidden>
+          <div class="gal-head"><span>Magoda — Brand Identity</span><button class="gal-close" data-gal="gal-magoda" aria-label="Close gallery">×</button></div>
+          <div class="design-strip" data-drag>
+            <div class="ds-item" data-src="./images/design-work/magoda/Magoda.JPG" data-cap="Magoda 1"><img src="./images/design-work/magoda/Magoda.JPG" alt="Magoda brand design 1" loading="lazy"/></div>
+            <div class="ds-item" data-src="./images/design-work/magoda/Magoda2.jpg" data-cap="Magoda 2"><img src="./images/design-work/magoda/Magoda2.jpg" alt="Magoda brand design 2" loading="lazy"/></div>
+          </div>
+        </div>
+
+        <div class="uc-gallery" id="gal-truevine" hidden>
+          <div class="gal-head"><span>TrueVine — Youth Camp 2025</span><button class="gal-close" data-gal="gal-truevine" aria-label="Close gallery">×</button></div>
+          <div class="design-strip design-strip--single">
+            <div class="ds-item ds-item--portrait" data-src="./images/design-work/truevine/TrueVine.PNG" data-cap="TrueVine Youth Camp 2025"><img src="./images/design-work/truevine/TrueVine.PNG" alt="TrueVine Youth Camp 2025 event poster" loading="lazy"/></div>
+          </div>
+        </div>
+
+      </div><!-- /uc-layout -->
+    </div>
+  </section>
+
+  <!-- ── CONTACT: State Machine ─────────────────────────── -->
+  <section id="detail-contact" class="detail-panel" data-node="contact" hidden>
+    <div class="detail-scroll">
+      <div class="diagram-header">
+        <span class="diag-badge">State Machine Diagram</span>
+        <h2 class="diag-title">«contact»</h2>
+      </div>
+
+      <div class="sm-layout">
+
+        <div class="sm-visual" aria-hidden="true">
+          <div class="sm-init">●</div>
+          <div class="sm-arr">──▶</div>
+          <div class="sm-state" id="sm-idle">Idle</div>
+          <div class="sm-arr">──▶</div>
+          <div class="sm-state" id="sm-composing">Composing</div>
+          <div class="sm-arr">──▶</div>
+          <div class="sm-state" id="sm-reviewing">Reviewing</div>
+          <div class="sm-arr">──▶</div>
+          <div class="sm-state" id="sm-sent">Sent ✓</div>
+        </div>
+        <div class="sm-err-row" aria-hidden="true">
+          <span class="sm-err-arr">↓</span>
+          <div class="sm-state sm-state--err" id="sm-error">Error ✗</div>
+        </div>
+
+        <div class="sm-ext-links">
+          <span class="sm-ext-lbl">External transitions:</span>
+          <a href="https://www.linkedin.com/in/mishie-mangarateke" target="_blank" rel="noopener" class="sm-ext-link">──▶ LinkedIn ↗</a>
+        </div>
+
+        <div class="sm-composing-wrap">
+          <div class="sm-state-title">«state» Composing</div>
+          <form id="contact-form" class="sm-form"
+                action="https://formspree.io/f/mgorogvw"
+                method="POST">
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"/>
+            <input type="hidden" name="_subject" value="Portfolio Enquiry — Mishie Mangarateke"/>
+
+            <div class="sm-field">
+              <label class="sm-lbl" for="cf-name">+ name : String</label>
+              <input type="text" id="cf-name" name="name" required autocomplete="name" class="sm-input" placeholder="Your name"/>
+            </div>
+            <div class="sm-field">
+              <label class="sm-lbl" for="cf-email">+ email : String</label>
+              <input type="email" id="cf-email" name="email" required autocomplete="email" class="sm-input" placeholder="your@email.com"/>
+            </div>
+            <div class="sm-field">
+              <label class="sm-lbl" for="cf-subject">+ subject : Enum</label>
+              <select id="cf-subject" name="subject" required class="sm-select">
+                <option value="">— select —</option>
+                <option value="CV Request">CV Request</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="General Enquiry">General Enquiry</option>
+                <option value="Reference Request">Reference Request</option>
+              </select>
+            </div>
+            <div class="sm-field">
+              <label class="sm-lbl" for="cf-message">+ message : String</label>
+              <textarea id="cf-message" name="message" required rows="4" class="sm-textarea" placeholder="Your message..."></textarea>
+            </div>
+            <div class="sm-foot">
+              <span class="sm-note">References available on request</span>
+              <button type="submit" class="sm-submit" id="sm-submit">send() : void</button>
+            </div>
+            <div id="form-ok" class="sm-result sm-result--ok" hidden>✓ Message sent — transition → Sent</div>
+            <div id="form-err" class="sm-result sm-result--err" hidden>✗ Send failed — transition → Error. Please try again.</div>
+          </form>
+        </div>
+
+      </div><!-- /sm-layout -->
+    </div>
+  </section>
+
+  <!-- ─── LIGHTBOX ──────────────────────────────────────── -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+    <button class="lb-close" id="lb-close" aria-label="Close lightbox">×</button>
+    <button class="lb-prev" id="lb-prev" aria-label="Previous image">‹</button>
+    <div class="lb-stage"><img id="lb-img" class="lb-img" src="" alt=""/></div>
+    <button class="lb-next" id="lb-next" aria-label="Next image">›</button>
+    <p id="lb-cap" class="lb-cap" aria-live="polite"></p>
+  </div>
+  <div id="lb-backdrop" class="lb-backdrop" aria-hidden="true"></div>
+
+  <!-- ─── MOBILE NAV ────────────────────────────────────── -->
+  <div id="mobile-nav" class="mobile-nav" hidden>
+    <button id="mobile-close" class="mn-close" aria-label="Close menu">×</button>
+    <nav class="mn-links">
+      <a href="#" class="mn-link" data-node="profile">«profile» · PROFILE</a>
+      <a href="#" class="mn-link" data-node="skills">«package» · SKILLS</a>
+      <a href="#" class="mn-link" data-node="experience">«sequence» · EXPERIENCE</a>
+      <a href="#" class="mn-link" data-node="projects">«component» · PROJECTS</a>
+      <a href="#" class="mn-link" data-node="designs">«usecase» · DESIGNS</a>
+      <a href="#" class="mn-link" data-node="contact">«state» · CONTACT</a>
+    </nav>
+  </div>
+
+  <!-- ─── FOOTER ────────────────────────────────────────── -->
+  <footer id="site-footer">
+    <span class="ft-name">Mishie Mangarateke</span>
+    <span class="ft-sep" aria-hidden="true">·</span>
+    <span class="ft-role">Business Systems Analyst</span>
+    <span class="ft-sep" aria-hidden="true">·</span>
+    <span class="ft-copy">&copy; <span id="footer-year"></span></span>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
