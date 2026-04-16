@@ -265,15 +265,26 @@ requestAnimationFrame(() => {
     scheduleRender();
   }, { passive: false });
 
-  // Expose reset function for nav-home
-  window._resetCanvasTransform = () => { tx = 0; ty = 0; scale = 1; scheduleRender(); };
+  // Fit and center the SVG in the viewport
+  function initTransform() {
+    const vw = viewport.clientWidth;
+    const vh = viewport.clientHeight;
+    scale = Math.min(1, vw / 1400, vh / 900);
+    tx = Math.max(0, (vw - 1400 * scale) / 2);
+    ty = Math.max(0, (vh - 900 * scale) / 2);
+    scheduleRender();
+  }
+  initTransform();
+  window._resetCanvasTransform = initTransform;
 })();
 
 /* ── NODE HOVER TOOLTIP ───────────────────────────────────── */
+// Shared flag: long-press on mobile sets this to suppress the following click
+let suppressNextNodeTap = false;
+
 (function initNodeTooltip() {
   const svg = document.getElementById('diagram-canvas');
   if (!svg) return;
-  if (matchMedia('(pointer: coarse)').matches) return; // touch devices: no hover tooltip, no tap flash
 
   const tipEl = document.createElement('div');
   tipEl.className = 'canvas-node-tip';
@@ -304,19 +315,57 @@ requestAnimationFrame(() => {
     contact:    'State Machine — Contact form as a state transition',
   };
 
+  const isTouch = matchMedia('(pointer: coarse)').matches;
+
   svg.querySelectorAll('.uml-node').forEach(node => {
     const id = node.dataset.node;
-    node.addEventListener('mouseenter', () => {
-      tipEl.textContent = NODE_TIPS[id] || '';
-      tipEl.style.opacity = '1';
-    });
-    node.addEventListener('mousemove', e => {
-      tipEl.style.left = (e.clientX + 14) + 'px';
-      tipEl.style.top = (e.clientY - 28) + 'px';
-    });
-    node.addEventListener('mouseleave', () => {
-      tipEl.style.opacity = '0';
-    });
+
+    if (!isTouch) {
+      // Desktop — hover to reveal description
+      node.addEventListener('mouseenter', () => {
+        tipEl.textContent = NODE_TIPS[id] || '';
+        tipEl.style.opacity = '1';
+      });
+      node.addEventListener('mousemove', e => {
+        tipEl.style.left = (e.clientX + 14) + 'px';
+        tipEl.style.top = (e.clientY - 28) + 'px';
+      });
+      node.addEventListener('mouseleave', () => {
+        tipEl.style.opacity = '0';
+      });
+    } else {
+      // Mobile — hold 500ms to peek description; short tap goes straight to panel
+      let pressTimer = null;
+      let tipActive  = false;
+
+      node.addEventListener('touchstart', e => {
+        tipActive = false;
+        pressTimer = setTimeout(() => {
+          tipActive = true;
+          suppressNextNodeTap = true;
+          const t = e.touches[0];
+          tipEl.textContent = NODE_TIPS[id] || '';
+          tipEl.style.left = Math.min(t.clientX + 14, window.innerWidth - 280) + 'px';
+          tipEl.style.top  = Math.max(t.clientY - 60, 70) + 'px';
+          tipEl.style.opacity = '1';
+        }, 500);
+      }, { passive: true });
+
+      // Panning cancels the long-press timer
+      node.addEventListener('touchmove', () => {
+        clearTimeout(pressTimer);
+        pressTimer = null;
+      }, { passive: true });
+
+      node.addEventListener('touchend', () => {
+        clearTimeout(pressTimer);
+        pressTimer = null;
+        if (tipActive) {
+          // Auto-dismiss tooltip after 2 s
+          setTimeout(() => { tipEl.style.opacity = '0'; tipActive = false; }, 2000);
+        }
+      }, { passive: true });
+    }
   });
 })();
 
@@ -427,7 +476,10 @@ function drillOut() {
 
 // Node clicks
 document.querySelectorAll('.uml-node').forEach(node => {
-  function activate() { drillIn(node.dataset.node); }
+  function activate() {
+    if (suppressNextNodeTap) { suppressNextNodeTap = false; return; } // long-press tooltip was shown
+    drillIn(node.dataset.node);
+  }
   node.addEventListener('click', activate);
   node.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
