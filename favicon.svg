@@ -1,20 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Background -->
   <rect width="32" height="32" fill="#0D0D0F"/>
-  <!-- Gold border frame — matches the UML node style on site -->
-  <rect x="1.5" y="1.5" width="29" height="29" rx="2"
-        fill="none" stroke="#C9A040" stroke-width="1"/>
-  <!-- Thin divider line — echoes the node-div lines on the site -->
-  <line x1="4" y1="17" x2="28" y2="17" stroke="#C9A040" stroke-width="0.6" opacity="0.5"/>
-  <!-- First M — solid gold, serif weight -->
-  <text x="8" y="15"
+  <text x="16" y="22"
+        text-anchor="middle"
         font-family="Georgia, 'Times New Roman', serif"
-        font-size="12" font-weight="700"
-        fill="#C9A040" letter-spacing="0">M</text>
-  <!-- Second M — outlined / lighter, offset right -->
-  <text x="16" y="27"
-        font-family="Georgia, 'Times New Roman', serif"
-        font-size="12" font-weight="400"
-        fill="none" stroke="#C9A040" stroke-width="0.6"
-        letter-spacing="0">M</text>
+        font-size="15" font-weight="700"
+        fill="#C9A040" letter-spacing="2">MM</text>
 </svg>
