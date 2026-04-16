@@ -306,14 +306,16 @@ function drillIn(nodeId) {
     if (p.dataset.node !== nodeId) p.hidden = true;
   });
 
-  // Open target panel — remove hidden, force reflow, then let CSS opacity transition fire
-  const panel = document.getElementById(`detail-${nodeId}`);
-  if (panel) {
-    panel.hidden = false;
-    panel.offsetHeight; // force reflow so opacity transition triggers
-    const scroll = panel.querySelector('.detail-scroll');
-    if (scroll) scroll.scrollTop = 0;
-  }
+  // Delay panel reveal slightly so canvas dim transition visibly starts first
+  setTimeout(() => {
+    const panel = document.getElementById(`detail-${nodeId}`);
+    if (panel) {
+      panel.hidden = false;
+      panel.offsetHeight; // force reflow so opacity transition triggers
+      const scroll = panel.querySelector('.detail-scroll');
+      if (scroll) scroll.scrollTop = 0;
+    }
+  }, 60);
 
   // Node-specific triggers
   if (nodeId === 'profile' && !countedUp) {
@@ -802,16 +804,22 @@ function _renderLightbox() {
 
   function openMenu() {
     mobileNav.hidden = false;
+    mobileNav.offsetHeight; // force reflow so opacity transition fires from 0
+    mobileNav.style.opacity = '1';
     burger.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
     mobileClose?.focus();
   }
 
   function closeMenu() {
-    mobileNav.hidden = true;
+    mobileNav.style.opacity = '0';
     burger.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
     burger.focus();
+    setTimeout(() => {
+      mobileNav.hidden = true;
+      mobileNav.style.opacity = '';
+    }, 230);
   }
 
   burger.addEventListener('click', openMenu);
