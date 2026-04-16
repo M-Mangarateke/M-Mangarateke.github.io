@@ -1,14 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- M body — stops cleanly before arrowheads -->
-  <polyline
-    points="7,20 7,5 16,15 25,5 25,20"
-    fill="none"
-    stroke="#2A1B10"
-    stroke-width="4.5"
-    stroke-linejoin="miter"
-    stroke-linecap="butt"/>
-  <!-- Left arrowhead — sharper, longer -->
-  <polygon points="4.5,19 9.5,19 7,29" fill="#2A1B10"/>
-  <!-- Right arrowhead — sharper, longer -->
-  <polygon points="22.5,19 27.5,19 25,29" fill="#2A1B10"/>
+  <!-- Gold outline layer -->
+  <polyline points="7,19 7,4 16,14 25,4 25,19"
+    fill="none" stroke="#C9A040" stroke-width="6"
+    stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 4,17 L 7,28 L 10,17"
+    fill="none" stroke="#C9A040" stroke-width="6"
+    stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 22,17 L 25,28 L 28,17"
+    fill="none" stroke="#C9A040" stroke-width="6"
+    stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Mocha fill layer -->
+  <polyline points="7,19 7,4 16,14 25,4 25,19"
+    fill="none" stroke="#2A1B10" stroke-width="3.5"
+    stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 4,17 L 7,28 L 10,17"
+    fill="none" stroke="#2A1B10" stroke-width="3.5"
+    stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M 22,17 L 25,28 L 28,17"
+    fill="none" stroke="#2A1B10" stroke-width="3.5"
+    stroke-linejoin="round" stroke-linecap="round"/>
 </svg>
