@@ -3,12 +3,12 @@
   <polyline
     points="7,20 7,5 16,15 25,5 25,20"
     fill="none"
-    stroke="#C9A040"
+    stroke="#2A1B10"
     stroke-width="4.5"
     stroke-linejoin="miter"
     stroke-linecap="butt"/>
   <!-- Left arrowhead — sharper, longer -->
-  <polygon points="4.5,19 9.5,19 7,29" fill="#C9A040"/>
+  <polygon points="4.5,19 9.5,19 7,29" fill="#2A1B10"/>
   <!-- Right arrowhead — sharper, longer -->
-  <polygon points="22.5,19 27.5,19 25,29" fill="#C9A040"/>
+  <polygon points="22.5,19 27.5,19 25,29" fill="#2A1B10"/>
 </svg>
