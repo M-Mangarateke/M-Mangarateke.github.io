@@ -135,6 +135,7 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
   position: fixed; inset: 0; top: var(--nav-h);
   overflow: hidden;
   transition: opacity var(--t-med), filter var(--t-med);
+  touch-action: none; /* hand all touch gestures to our JS */
 }
 #canvas-viewport.dimmed { opacity: 0.08; filter: blur(2px); pointer-events: none; }
 

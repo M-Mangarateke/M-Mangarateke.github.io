@@ -178,21 +178,77 @@ requestAnimationFrame(() => {
     viewport.style.cursor = '';
   });
 
-  let lastTouchX = 0, lastTouchY = 0;
+  // ── Touch state ──
+  let lastTouchX = 0, lastTouchY = 0, lastTouchTime = 0;
+  let touchVelX = 0, touchVelY = 0;
+  let touchRafId = null;
+  let pinchStartDist = 0, pinchStartScale = 1, pinchMidX = 0, pinchMidY = 0;
+
+  function getTouchDist(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.hypot(dx, dy);
+  }
+
   viewport.addEventListener('touchstart', e => {
+    cancelAnimationFrame(touchRafId);
+    touchVelX = 0; touchVelY = 0;
     if (e.touches.length === 1) {
       lastTouchX = e.touches[0].clientX;
       lastTouchY = e.touches[0].clientY;
+      lastTouchTime = Date.now();
+    } else if (e.touches.length === 2) {
+      pinchStartDist = getTouchDist(e.touches);
+      pinchStartScale = scale;
+      pinchMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      pinchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
     }
   }, { passive: true });
 
   viewport.addEventListener('touchmove', e => {
     if (e.touches.length === 1) {
-      tx += e.touches[0].clientX - lastTouchX;
-      ty += e.touches[0].clientY - lastTouchY;
+      const dx = e.touches[0].clientX - lastTouchX;
+      const dy = e.touches[0].clientY - lastTouchY;
+      const now = Date.now();
+      const dt = Math.max(now - lastTouchTime, 1);
+      touchVelX = dx / dt;
+      touchVelY = dy / dt;
+      tx += dx; ty += dy;
       lastTouchX = e.touches[0].clientX;
       lastTouchY = e.touches[0].clientY;
+      lastTouchTime = now;
       scheduleRender();
+    } else if (e.touches.length === 2 && pinchStartDist > 0) {
+      const dist = getTouchDist(e.touches);
+      const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, pinchStartScale * (dist / pinchStartDist)));
+      const rect = viewport.getBoundingClientRect();
+      const mx = pinchMidX - rect.left;
+      const my = pinchMidY - rect.top;
+      tx = mx - (mx - tx) * (newScale / scale);
+      ty = my - (my - ty) * (newScale / scale);
+      scale = newScale;
+      scheduleRender();
+    }
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', e => {
+    if (e.touches.length === 0) {
+      // Momentum glide
+      const FRICTION = 0.92;
+      function glide() {
+        touchVelX *= FRICTION; touchVelY *= FRICTION;
+        if (Math.abs(touchVelX) < 0.05 && Math.abs(touchVelY) < 0.05) return;
+        tx += touchVelX * 16; ty += touchVelY * 16;
+        scheduleRender();
+        touchRafId = requestAnimationFrame(glide);
+      }
+      touchRafId = requestAnimationFrame(glide);
+    } else if (e.touches.length === 1) {
+      // Finger lifted during pinch — reset single-touch origin
+      lastTouchX = e.touches[0].clientX;
+      lastTouchY = e.touches[0].clientY;
+      lastTouchTime = Date.now();
+      pinchStartDist = 0;
     }
   }, { passive: true });
 
@@ -217,6 +273,7 @@ requestAnimationFrame(() => {
 (function initNodeTooltip() {
   const svg = document.getElementById('diagram-canvas');
   if (!svg) return;
+  if (matchMedia('(pointer: coarse)').matches) return; // touch devices: no hover tooltip, no tap flash
 
   const tipEl = document.createElement('div');
   tipEl.className = 'canvas-node-tip';
