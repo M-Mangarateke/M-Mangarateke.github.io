@@ -908,6 +908,8 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
   .seq-frame { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .seq-ll-head { font-size: 0.58rem; padding: 0.4rem 0.15rem; }
   .msg-txt { font-size: 0.54rem; }
+  /* Give message labels room so they aren't clipped at the left edge */
+  .seq-messages { padding-left: 1.5rem; padding-right: 0.5rem; }
 
   /* ── Projects ── */
   .comp-grid { grid-template-columns: 1fr; }

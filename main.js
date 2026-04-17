@@ -142,7 +142,7 @@ requestAnimationFrame(() => {
   let startX = 0, startY = 0;
   let dirty = false;
 
-  const MIN_SCALE = 0.4;
+  let MIN_SCALE = 0.15; // updated dynamically by initTransform to the fit-scale
   const MAX_SCALE = 2.5;
 
   function applyTransform() {
@@ -265,11 +265,12 @@ requestAnimationFrame(() => {
     scheduleRender();
   }, { passive: false });
 
-  // Fit and center the SVG in the viewport
+  // Fit and center the SVG in the viewport; pin MIN_SCALE to the fit level
   function initTransform() {
     const vw = viewport.clientWidth;
     const vh = viewport.clientHeight;
     scale = Math.min(1, vw / 1400, vh / 900);
+    MIN_SCALE = scale; // user can always pinch back to the fully-fitted view
     tx = Math.max(0, (vw - 1400 * scale) / 2);
     ty = Math.max(0, (vh - 900 * scale) / 2);
     scheduleRender();
