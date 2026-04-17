@@ -928,19 +928,14 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
   .uml-pkg { min-width: unset; width: 100%; }
 
   /* ── Experience ── */
+  /* Allow the inner seq-frame to actually scroll; detail-scroll clips it otherwise */
+  .detail-scroll { overflow-x: auto; }
   .seq-diagram { max-width: 100%; }
   .seq-frame { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  /* Wide enough that all 4 lifelines + absolute labels have room to breathe */
+  .seq-heads, .seq-body { min-width: 600px; }
   .seq-ll-head { font-size: 0.58rem; padding: 0.4rem 0.15rem; }
-  .msg-txt { font-size: 0.54rem; }
-  /* Give message labels room and allow wrapping so long labels never clip */
-  .seq-messages { padding-left: 1.5rem; padding-right: 0.5rem; }
-  .msg-txt {
-    font-size: 0.5rem;
-    white-space: normal;
-    max-width: 90px;
-    text-align: center;
-    word-break: break-word;
-  }
+  .msg-txt { font-size: 0.5rem; white-space: nowrap; }
 
   /* ── Projects ── */
   .comp-grid { grid-template-columns: 1fr; }
@@ -993,7 +988,7 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
 
   /* Sequence */
   .seq-ll-head { font-size: 0.52rem; }
-  .msg-txt { font-size: 0.48rem; max-width: 80px; }
+  .msg-txt { font-size: 0.48rem; }
 
   /* Projects */
   .comp-carousel { height: 180px; }
