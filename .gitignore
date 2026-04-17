@@ -1,14 +1,3 @@
-# Non-website files — excluded from the GitHub Pages repo
-CV/
-UCT/
-OnlineCV - Shortcut.lnk
-
-# Node / tooling (temporary)
-node_modules/
-package.json
-package-lock.json
-screenshot.js
-
 # OS
 .DS_Store
 Thumbs.db
