@@ -365,6 +365,30 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
 }
 .count-num { color: var(--text-mono); font-size: 1.1rem; }
 
+/* Stat source attribution */
+.stat-source {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-top: 0.9rem; flex-wrap: wrap;
+  font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.04em;
+}
+.ss-pill {
+  background: var(--border); color: var(--bg);
+  padding: 2px 7px; border-radius: 2px;
+  font-size: 0.58rem; letter-spacing: 0.06em; flex-shrink: 0;
+}
+.ss-project {
+  font-family: var(--font-m); font-size: 0.62rem; letter-spacing: 0.06em;
+  color: var(--border);
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-color: rgba(201,160,64,0.35);
+  transition: color var(--t-fast); cursor: none;
+}
+.ss-project:hover { color: var(--text-mono); }
+.ss-desc { color: var(--text-muted); }
+.ss-sep  { color: var(--border-dim); }
+.ss-url  { color: var(--text-muted); transition: color var(--t-fast); }
+.ss-url:hover { color: var(--border); }
+
 /* Education association */
 .edu-assoc {
   display: flex; flex-direction: column; align-items: flex-start; gap: 0;

@@ -512,6 +512,14 @@ document.getElementById('nav-home')?.addEventListener('click', e => {
   if (window._resetCanvasTransform) window._resetCanvasTransform();
 });
 
+// [data-drill] — inline source attribution links that open a panel
+document.querySelectorAll('[data-drill]').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    drillIn(el.dataset.drill);
+  });
+});
+
 /* ── COUNT-UP ANIMATION ───────────────────────────────────── */
 function runCountUp() {
   document.querySelectorAll('.count-num').forEach(el => {
