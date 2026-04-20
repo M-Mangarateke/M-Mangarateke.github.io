@@ -139,6 +139,11 @@ body.cursor-hover .cursor-ring { width: 36px; height: 36px; border-color: var(--
 /* ── CANVAS VIEWPORT ─────────────────────────────────────── */
 #canvas-viewport {
   position: fixed; inset: 0; top: var(--nav-h);
+  /* Use dynamic viewport height where supported — this tracks the mobile
+     address-bar so the canvas never extends behind it or gets clipped */
+  height: calc(100vh - var(--nav-h));
+  height: calc(100dvh - var(--nav-h));
+  bottom: auto;
   overflow: hidden;
   transition: opacity var(--t-med), filter var(--t-med);
   touch-action: none; /* hand all touch gestures to our JS */

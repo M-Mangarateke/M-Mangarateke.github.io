@@ -268,7 +268,10 @@ requestAnimationFrame(() => {
   // Fit and center the SVG in the viewport; pin MIN_SCALE to the fit level
   function initTransform() {
     const vw = viewport.clientWidth;
-    const vh = viewport.clientHeight;
+    // Account for the footer (≈36px) so the diagram never hides behind it
+    const footer = document.getElementById('site-footer');
+    const footerH = footer ? footer.offsetHeight : 0;
+    const vh = viewport.clientHeight - footerH;
     scale = Math.min(1, vw / 1400, vh / 900);
     MIN_SCALE = scale; // user can always pinch back to the fully-fitted view
     tx = Math.max(0, (vw - 1400 * scale) / 2);
@@ -277,6 +280,26 @@ requestAnimationFrame(() => {
   }
   initTransform();
   window._resetCanvasTransform = initTransform;
+
+  // Re-fit whenever the viewport dimensions change (mobile address-bar,
+  // orientation change, window resize, etc.)
+  let resizeTimer = null;
+  function debouncedRefit() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      // Only refit if the user hasn't manually panned/zoomed away from the default
+      if (!currentNode) initTransform();
+    }, 120);
+  }
+  window.addEventListener('resize', debouncedRefit);
+  window.addEventListener('orientationchange', () => {
+    // Orientation changes can lag; wait a beat then refit
+    setTimeout(debouncedRefit, 200);
+  });
+  // visualViewport fires on mobile address-bar show/hide
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', debouncedRefit);
+  }
 })();
 
 /* ── NODE HOVER TOOLTIP ───────────────────────────────────── */
